@@ -10,6 +10,9 @@ const userRoutes = require('./users/user.routes');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Servez des fichiers statiques depuis le dossier "frontend"
+app.use(express.static(path.join(__dirname, 'frontend')));
+
 // Routes
 
 app.use('/users', userRoutes);
