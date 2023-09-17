@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+body {
+  /*background: url("../img/Arrière-plan-copie.png");*/
+  background: #121316;
+}
+html {
+  scroll-behavior: smooth;
+}
+img {
+  /*background-color: #202124;*/
+  transition: 300ms ease-in;
+  filter: grayscale(100%);
+}
+
+img:hover {
+  filter: grayscale(0%);
+}
+img#logoFooter {
+  background-color: transparent;
+}
+img#logoFooter:hover {
+  background-color: transparent;
+}
+#dialog {
+  position: fixed;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+}
+.dialogModal_Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  z-index: 30;
+  background-color: rgba(0, 0, 0, 0.5);
+}

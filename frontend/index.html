@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jules Jean-Louis / Projets</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="elements/css/style.css">
     <link rel="icon" href="./elements/images/icon/jjl-3d-v2.svg">
     <script src="https://kit.fontawesome.com/8b26d30613.js" crossorigin="anonymous"></script>
     <!-- tailwindcss -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="home.js"></script> 
+    <script defer type="module" src="js/home.js"></script> 
 </head>
 <body>
 <header class="fixed top-2 left-0 right-0 z-10 mx-2 flex justify-center">
@@ -19,7 +19,7 @@
             <div class="flex items-center space-x-3">
                 <li>
                     <a href="#top" class="text-white">
-                        <img src="img/jjl-3d-v2.svg" alt="" class="w-9 text-[#D2D2D3] hover:text-[#a770ff]">
+                        <img src="./elements/images/icon/jjl-3d-v2.svg" alt="" class="w-9 text-[#D2D2D3] hover:text-[#a770ff]">
                     </a>
                 </li>
                 <li class="hidden lg:block">
@@ -35,15 +35,17 @@
                     </a>
                 </li>
                 <li class="rounded-full w-9 bg-[#202124] flex justify-center ">
-                    <a href="https://jules-jean-louis.students-laplateforme.io/" class="text-[#D2D2D3] hover:text-[#a770ff]">
+                    <button id="btnLogin" class="text-[#D2D2D3] hover:text-[#a770ff]">
                         <i class="fa-regular fa-circle-user fa-2x"></i>
-                    </a>
+                    </button>
                 </li>
             </div>
         </ul>
     </nav>
 </header>
     <main>
+        <div id="containerFormLoginRegister"></div>
+        <div id="dialogModal_Overlay"></div>
         <article>
             <section class="w-full flex flex-col items-center lg:h-[185vh]">
                 <div id="title" class="pt-[20%] pb-[4%] mb:pt-[5%] lg:pt-[5%] lg:pb-[2%]">
@@ -79,7 +81,7 @@
                         ease-in duration-300 ">
                     <button class="flex items-center space-x-3 lg:space-0">
                             <span class="text-[#D2D2D3]">
-                                <img src="img/jjl-3d-v2.svg" id="logoFooter" alt="" class="w-5">
+                                <img src="elements/images/icon/jjl-3d-v2.svg" id="logoFooter" alt="" class="w-5">
                             </span>
                         <span class="text-[#707173]">
                                 Portfolio
