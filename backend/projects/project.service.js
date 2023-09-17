@@ -3,21 +3,35 @@ const pool = require('./../../config/database');
 module.exports = {
     createProjects: (data, callBack) => {
         pool.query(
-            `INSERT INTO projects (name, short_des, des, created_at)
-            VALUES (?, ?, ?, NOW())`,
+            `INSERT INTO projects (name, description, github, link, preview, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, NOW(), NOW())`,
             [
                 data.name,
-                data.short_des,
-                data.des,
                 data.description,
+                data.github,
+                data.link,
+                data.preview,
             ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);
                 }
-                return callBack(null, results);
+
+                const id = results.insertId;
+                const tagsData = data.tags.map(tag => [id, tag]);
+
+                pool.query(
+                    `INSERT INTO project_tags (project_id, tag_id) VALUES ?`,
+                    [tagsData],
+                    (tagsError, tagsResults) => {
+                        if (tagsError) {
+                            return callBack(tagsError);
+                        }
+                        return callBack(null, 'Projet créé avec succès.');
+                    }
+                );
             }
-        )
+        );
     },
     getProjects: callBack => {
         pool.query(

@@ -1,4 +1,8 @@
-const { create, getUsers, updateUser, deleteUser, getUserByUserEmail } = require('./user.service');
+const { create,
+    getUsers,
+    updateUser,
+    deleteUser,
+    getUserByUserEmail } = require('./user.service');
 const { genSaltSync, hashSync, compareSync } = require('bcrypt');
 const { sign } = require('jsonwebtoken');
 
