@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = process.env.APP_PORT || 5000;
+const path = require('path');
 
 const userRoutes = require('./users/user.routes');
 
@@ -11,9 +12,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Servez des fichiers statiques depuis le dossier "frontend"
-app.use(express.static(path.join(__dirname, 'frontend')));
+app.use(express.static((__dirname, 'frontend')));
 
-// Routes
+// Les routes définies dans frontend/index.html seront gérées automatiquement par express.static
 
 app.use('/users', userRoutes);
 
