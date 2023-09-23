@@ -72,36 +72,37 @@ function addProject() {
     const modal = document.getElementById('containerModalAdmin');
     modal.innerHTML = '';
     modal.innerHTML = `
-    <dialog id="modalAddProduct" class="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 rounded bg-[#181A1Dfc] p-4">
+    <dialog id="modalAddProduct" class="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 rounded bg-[#181A1Dfc] border border-[#ac1de4] p-4">
         <div class="flex flex-col justify-center items-center">
-        <div class="flex justify-between">
+        <div class="flex justify-between items-center">
             <h2 class="text-2xl font-bold text-[#D2D2D3]">Ajouter un projet</h2>
-            <button id="btnCloseModal" class="mt-4 bg-secondary-onion text-white font-bold py-2 px-4 rounded">Fermer</button>
+            <button id="btnCloseModal" class="bg-slate-600 text-white font-bold py-2 px-4 rounded">Fermer</button>
         </div>
             <form action="" method="post" id="addProjectForm" enctype="multipart/form-data">
-                <div>
+                <div class="bg-[#2e3238] text-white border-2 border-[#707173] rounded flex flex-col">
                     <label for="name">Nom du projet</label>
-                    <input type="text" name="name" id="name" class="border-2 border-[#707173] rounded">
+                    <input type="text" name="name" id="name" class="bg-transparent">
                 </div>
-                
-                <div>
+                <div class="bg-[#2e3238] text-white border-2 border-[#707173] rounded flex flex-col">
                     <label for="des">Description du projet</label>
-                    <textarea name="des" id="description" cols="30" rows="10" class="border-2 border-[#707173] rounded"></textarea>
+                    <textarea name="description" id="description" cols="30" rows="10" class="bg-transparent"></textarea>
                 </div>
-                <div>
-                    <label for="github">Lien du repo</label>
-                    <input type="text" name="github" id="github" class="border-2 border-[#707173] rounded">
-                </div>
-                <div>
-                    <label for="link">Lien du projet</label>
-                    <input type="text" name="link" id="link" class="border-2 border-[#707173] rounded">
+                <div class="flex flex-wrap">
+                    <div class="bg-[#2e3238] text-white border-2 border-[#707173] rounded flex flex-col">
+                        <label for="github">Lien du repo</label>
+                        <input type="text" name="github" id="github"  class="bg-transparent">
+                    </div>
+                    <div class="bg-[#2e3238] text-white border-2 border-[#707173] rounded flex flex-col">
+                        <label for="link">Lien du projet</label>
+                        <input type="text" name="website" id="website" class="bg-transparent">
+                    </div>
                 </div>
                 <div>
                     <label for="img">Image du projet</label>
-                    <input type="file" name="preview" id="preview" class="border-2 border-[#707173] rounded">
+                    <input type="file" name="images" id="images" class="border-2 border-[#707173] rounded">
                 </div>
-                <div id="tagsFormAddProject"></div>
-                <button id="btnAddProjectForm" class="mt-4 bg-secondary-onion text-white font-bold py-2 px-4 rounded">Ajouter</button>
+                <div id="tagsFormAddProject" class="flex flex-wrap"></div>
+                <button id="btnAddProjectForm" class="mt-4 bg-[#ac1de4] w-full text-white font-bold py-2 px-4 rounded">Ajouter</button>
             </form>
         </div>
     </dialog>`;
@@ -117,7 +118,7 @@ function addProject() {
     getAllTags().then(data => {
         data.data.forEach(tag => {
             tagsFormAddProject.innerHTML += `
-            <div class="flex justify-center items-center">
+            <div class="flex justify-center items-center w-1/4">
                 <input type="checkbox" name="tags" id="tag${tag.id}" value="${tag.id}">
                 <label for="tag${tag.id}" class="text-xl font-bold text-[#D2D2D3]">${tag.name}</label>
             </div>`;
@@ -130,8 +131,8 @@ function addProject() {
         const name = document.getElementById('name').value;
         const description = document.getElementById('description').value;
         const github = document.getElementById('github').value;
-        const link = document.getElementById('link').value;
-        const preview = document.getElementById('preview').value;
+        const website = document.getElementById('website').value;
+        const images = document.getElementById('images').value;
         const tags = document.getElementsByName('tags');
         const tagsChecked = [];
         tags.forEach(tag => {
@@ -146,9 +147,10 @@ function addProject() {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${userToken}`
                 },
-                body: JSON.stringify({ name, description, github, link, preview, tags: tagsChecked }),
+                body: JSON.stringify({ name, description, github, website, images, tags: tagsChecked }),
             });
             const data = await response.json();
+            console.log(data);
             if (data.success === 1) {
                 dialog.removeAttribute("open");
                 modal.innerHTML = '';

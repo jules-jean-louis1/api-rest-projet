@@ -3,14 +3,14 @@ const pool = require('./../../config/database');
 module.exports = {
     createProjects: (data, callBack) => {
         pool.query(
-            `INSERT INTO projects (name, description, github, link, preview, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, NOW(), NOW())`,
+            `INSERT INTO projects (name, description, github, website, images, created_at)
+            VALUES (?, ?, ?, ?, ?, NOW())`,
             [
                 data.name,
                 data.description,
                 data.github,
-                data.link,
-                data.preview,
+                data.website,
+                data.images,
             ],
             (error, results, fields) => {
                 if (error) {
@@ -18,32 +18,24 @@ module.exports = {
                 }
 
                 const id = results.insertId;
-                const tagsData = data.tags.map(tag => [id, tag]);
-
-                pool.query(
-                    `INSERT INTO project_tags (project_id, tag_id) VALUES ?`,
-                    [tagsData],
-                    (tagsError, tagsResults) => {
-                        if (tagsError) {
-                            return callBack(tagsError);
+                const tagsData = data.tags ? data.tags.map(tag => [id, tag]) : [];
+                if (tagsData.length > 0) {
+                    pool.query(
+                        `INSERT INTO project_tags (project_id, tag_id) VALUES ?`,
+                        [tagsData],
+                        (tagsError, tagsResults) => {
+                            if (tagsError) {
+                                return callBack(tagsError);
+                            }
+                            return callBack(null, 'Projet créé avec succès.');
                         }
-                        return callBack(null, 'Projet créé avec succès.');
-                    }
-                );
+                    );
+                } else {
+                    // Aucun tag à insérer, vous pouvez appeler le callback directement
+                    return callBack(null, 'Projet créé avec succès.');
+                }
             }
         );
-    },
-    getProjects: callBack => {
-        pool.query(
-            `SELECT id, name, short_des, des, created_at FROM projects`,
-            [],
-            (error, results, fields) => {
-                if (error) {
-                    return callBack(error);
-                }
-                return callBack(null, results);
-            }
-        )
     },
     getProjectsById: (id, callBack) => {
         pool.query(
