@@ -7,12 +7,11 @@ const {
 module.exports = {
     createProjects: (req, res) => {
         const { name, description, github, website, images, tags } = req.body;
-        console.log(req.body);
-        // Vérifiez ici que les champs obligatoires sont présents
-        if (!name || !description || !github || !website || !images) {
+        console.log(images);
+        if (!name || !description || !github || !website) {
             return res.status(404).json({
                 success: 0,
-                message: "Tous les champs obligatoires doivent être remplis."
+                message: "Tous les champs obligatoires doivent être remplis, y compris l'image."
             });
         }
 
