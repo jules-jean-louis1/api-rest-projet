@@ -2,23 +2,26 @@ const pool = require('./../../config/database');
 
 module.exports = {
     createProjects: (data, callBack) => {
+        const { name, description, github, website, tags } = data;
+        // Extraire le nom du fichier image de l'objet
+        const images = data.images.filename;
+
         pool.query(
             `INSERT INTO projects (name, description, github, website, images, created_at)
-            VALUES (?, ?, ?, ?, ?, NOW())`,
+        VALUES (?, ?, ?, ?, ?, NOW())`,
             [
-                data.name,
-                data.description,
-                data.github,
-                data.website,
-                data.images,
+                name,
+                description,
+                github,
+                website,
+                images, // Insérer le nom du fichier image
             ],
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);
                 }
-
                 const id = results.insertId;
-                const tagsData = data.tags ? data.tags.map(tag => [id, tag]) : [];
+                const tagsData = tags ? tags.map(tag => [id, tag]) : [];
                 if (tagsData.length > 0) {
                     pool.query(
                         `INSERT INTO project_tags (project_id, tag_id) VALUES ?`,
@@ -36,6 +39,18 @@ module.exports = {
                 }
             }
         );
+    },
+    getAllProjects: callBack => {
+        pool.query(
+            `SELECT id, name, description, github, website, images, created_at FROM projects`,
+            [],
+            (error, results, fields) => {
+                if (error) {
+                    return callBack(error);
+                }
+                return callBack(null, results);
+            }
+        )
     },
     getProjectsById: (id, callBack) => {
         pool.query(

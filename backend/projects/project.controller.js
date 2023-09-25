@@ -1,20 +1,23 @@
 const {
     createProjects,
-    getProjects,
+    getAllProjects,
     getProjectsById,
 } = require("./project.service");
 
 module.exports = {
     createProjects: (req, res) => {
-        const { name, description, github, website, images, tags } = req.body;
-        console.log(images);
-        if (!name || !description || !github || !website) {
-            return res.status(404).json({
+        const name = req.body.name;
+        const description = req.body.description;
+        const github = req.body.github;
+        const website = req.body.website;
+        const images = req.file;
+        const tags = req.body.tags;
+        if (!name || !description || !github || !website || !images) {
+            return res.status(400).json({
                 success: 0,
                 message: "Tous les champs obligatoires doivent être remplis, y compris l'image."
             });
         }
-
         const projectData = {
             name,
             description,
@@ -23,7 +26,6 @@ module.exports = {
             images,
             tags
         };
-
         createProjects(projectData, (err, results) => {
             if (err) {
                 console.log(err);
@@ -39,8 +41,8 @@ module.exports = {
             });
         });
     },
-    getProjects: (req, res) => {
-        getProjects((err, results) => {
+    getAllProjects: (req, res) => {
+        getAllProjects((err, results) => {
             if (err) {
                 console.log(err);
                 return;

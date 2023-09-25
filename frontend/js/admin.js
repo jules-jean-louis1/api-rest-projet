@@ -132,7 +132,8 @@ function addProject() {
         const description = document.getElementById('description').value;
         const github = document.getElementById('github').value;
         const website = document.getElementById('website').value;
-        const images = document.getElementById('images').value;
+        const imagesInput = document.getElementById('images');
+        const images = imagesInput.files[0];
         const tags = document.getElementsByName('tags');
         const tagsChecked = [];
         tags.forEach(tag => {
@@ -140,6 +141,13 @@ function addProject() {
                 tagsChecked.push(tag.value);
             }
         });
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('description', description);
+        formData.append('github', github);
+        formData.append('website', website);
+        formData.append('images', images);
+        formData.append('tags', JSON.stringify(tagsChecked));
         try {
             const response = await fetch('http://localhost:5000/projects/submit', {
                 method: 'POST',
@@ -147,10 +155,9 @@ function addProject() {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${userToken}`
                 },
-                body: JSON.stringify({ name, description, github, website, images, tags: tagsChecked }),
+                body: formData,
             });
             const data = await response.json();
-            console.log(data);
             if (data.success === 1) {
                 dialog.removeAttribute("open");
                 modal.innerHTML = '';
@@ -159,7 +166,11 @@ function addProject() {
                 console.log(data.message);
             }
         } catch (error) {
-            console.log(error);
+            if (error instanceof SyntaxError) {
+                console.error('Invalid JSON:', error.message);
+            } else {
+                throw error;
+            }
         }
     });
 }
