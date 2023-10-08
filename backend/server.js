@@ -2,21 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = process.env.APP_PORT || 5000;
-const cors = require('cors');
 const path = require('path');
 
 const userRoutes = require('./users/user.routes');
 const tagsRoutes = require('./tags/tags.routes');
 const projectRoutes = require('./projects/project.routes');
-
-// Middleware pour autoriser CORS
-const corsOptions = {
-    origin: '*', // Permet toutes les origines (n'importe quelle origine peut accéder à votre API)
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Content-Type,Authorization',
-};
-
-app.use(cors(corsOptions));
 
 // Middleware pour gérer les données JSON et les formulaires URL-encoded
 app.use(express.json());
