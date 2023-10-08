@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const router = require('express').Router();
 const { checkToken } = require('./../auth/token_validation');
 const multer = require('multer');
@@ -18,15 +19,25 @@ const upload = multer({
 });
 
 
+=======
+>>>>>>> parent of 72662fd (try add multer)
 const {
     createProjects,
     getAllProjects,
     getProjectsById,
 } = require("./project.controller");
 
+const router = require('express').Router();
+const { checkToken } = require('./../auth/token_validation');
 
+<<<<<<< HEAD
 router.post('/submit', checkToken, upload.single('images'), createProjects);
 router.get('/display', checkToken, getAllProjects);
+=======
+
+router.post('/', checkToken, createProjects);
+//router.get('/', checkToken, getProjects);
+>>>>>>> parent of 72662fd (try add multer)
 //router.get('/:id', checkToken, getProjectsById);
 
 

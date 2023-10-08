@@ -98,7 +98,7 @@ function addProject() {
                     </div>
                 </div>
                 <div>
-                    <label for="images">Image du projet</label>
+                    <label for="img">Image du projet</label>
                     <input type="file" name="images" id="images" class="border-2 border-[#707173] rounded">
                 </div>
                 <div id="tagsFormAddProject" class="flex flex-wrap"></div>
@@ -149,7 +149,7 @@ function addProject() {
         formData.append('images', images);
         formData.append('tags', JSON.stringify(tagsChecked));
         try {
-            const response = await fetch('http://localhost:5000/projects/submit', {
+            const response = await fetch('http://localhost:5000/projects', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
