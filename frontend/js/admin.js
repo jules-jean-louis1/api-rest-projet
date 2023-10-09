@@ -1,4 +1,4 @@
-
+const urlApi = 'http://localhost:4000/'
 
 const userToken = localStorage.getItem('token');
 const btnMenu = document.getElementById('btnMenu');
@@ -8,7 +8,7 @@ const btnProjectManager = document.getElementById('projectManager');
 const btnTagsManager = document.getElementById('tagsManager');
 
 if (!userToken) {
-    window.location.href = 'http://localhost:5000/';
+    window.location.href = urlApi;
 } else {
     const user = JSON.parse(localStorage.getItem('user'));
 
@@ -28,7 +28,7 @@ if (!userToken) {
     btnLogout.addEventListener('click', () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        window.location.href = 'http://localhost:5000/';
+        window.location.href = urlApi;
     });
 
     if (user.site_right === 'admin') {
@@ -41,7 +41,7 @@ if (!userToken) {
     }
 }
 async function getAllTags() {
-    const response = await fetch('http://localhost:5000/tags', {
+    const response = await fetch( urlApi+'/tags', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -149,7 +149,7 @@ function addProject() {
         formData.append('images', images);
         formData.append('tags', JSON.stringify(tagsChecked));
         try {
-            const response = await fetch('http://localhost:5000/projects', {
+            const response = await fetch(urlApi+'/projects', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -191,7 +191,7 @@ async function tagsManager() {
     const containerTag = document.getElementById('containerTag');
     containerTag.innerHTML = '';
     try {
-        const response = await fetch('http://localhost:5000/tags', {
+        const response = await fetch(urlApi + '/tags', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -263,7 +263,7 @@ function addTag() {
         e.preventDefault();
         const name = document.getElementById('name').value;
         try {
-            const response = await fetch('http://localhost:5000/tags', {
+            const response = await fetch( urlApi + '/tags', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -287,7 +287,7 @@ function addTag() {
 
 async function updateTag(id) {
     try {
-        const response = await fetch(`http://localhost:5000/tags/${id}`, {
+        const response = await fetch(`${urlApi}/tags/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -308,7 +308,7 @@ async function updateTag(id) {
 
 async function deleteTag(id) {
     try {
-        const response = await fetch(`http://localhost:5000/tags/${id}`, {
+        const response = await fetch(`${urlApi}/tags/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
