@@ -1,4 +1,4 @@
-const urlApi = 'http://localhost:4000/'
+const urlApi = 'http://localhost:4000'
 
 const userToken = localStorage.getItem('token');
 const btnMenu = document.getElementById('btnMenu');

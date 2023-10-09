@@ -5,9 +5,15 @@
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
 }
+:root {
+  --background-admin: #22272E;
+}
 body {
   /*background: url("../img/Arrière-plan-copie.png");*/
   background: #121316;
+}
+#body-admin {
+  background-color: var(--background-admin);
 }
 html {
   scroll-behavior: smooth;
@@ -41,4 +47,12 @@ img#logoFooter:hover {
   overflow-y: auto;
   z-index: 30;
   background-color: rgba(0, 0, 0, 0.5);
+}
+#text-font-gradient {
+  background: linear-gradient(140deg, #D2A8FF 12.09%, #F778BA 42.58%, #FF7B72 84.96%);
+    background-clip: border-box;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  width: fit-content;
 }
