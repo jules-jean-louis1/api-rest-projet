@@ -13,10 +13,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Servir des fichiers statiques depuis le dossier "frontend"
-app.use(express.static(path.join(__dirname, 'frontend')));
-
-// Les routes définies dans frontend/index.html seront gérées automatiquement par express.static
-
+//app.use(express.static(path.join(__dirname, '/frontend')));
+app.use(express.static(path.join(__dirname, '../frontend')));
 // Routes pour les utilisateurs
 app.use('/users', userRoutes);
 
