@@ -3,7 +3,6 @@ const router = require('express').Router();
 const { checkToken } = require('./../auth/token_validation');
 const multer = require('multer');
 
-
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './frontend/elements/images/projects/');
@@ -18,7 +17,6 @@ const upload = multer({
     limits: { fileSize: 10 * 1024 * 1024 } // 10 Mo (en octets)
 });
 
-
 =======
 >>>>>>> parent of 72662fd (try add multer)
 const {
@@ -27,8 +25,6 @@ const {
     getProjectsById,
 } = require("./project.controller");
 
-const router = require('express').Router();
-const { checkToken } = require('./../auth/token_validation');
 
 <<<<<<< HEAD
 router.post('/submit', checkToken, upload.single('images'), createProjects);
@@ -40,6 +36,4 @@ router.post('/', checkToken, createProjects);
 >>>>>>> parent of 72662fd (try add multer)
 //router.get('/:id', checkToken, getProjectsById);
 
-
 module.exports = router;
-
