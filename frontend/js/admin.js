@@ -71,34 +71,36 @@ function addProject() {
     const modal = document.getElementById('containerModalAdmin');
     modal.innerHTML = '';
     modal.innerHTML = `
-    <dialog id="modalAddProduct" class="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 rounded bg-[#181A1Dfc] border border-[#ac1de4] p-4">
-        <div class="flex flex-col justify-center items-center">
+    <dialog id="modalAddProduct" class="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 rounded bg-[#181A1Dfc] border border-[#ac1de4] p-4 w-[70%] h-[70%] xl:w-1/2 xl:h-1/2">
+        <div class="flex flex-col justify-between h-full">
         <div class="flex justify-between items-center">
             <h2 class="text-2xl font-bold text-[#D2D2D3]">Ajouter un projet</h2>
-            <button id="btnCloseModal" class="bg-slate-600 text-white font-bold py-2 px-4 rounded">Fermer</button>
+            <button id="btnCloseModal" class="bg-slate-600 text-white font-bold p-1 rounded">
+                <svg width="1em" height="1em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 pointer-events-none"><path d="M16.804 6.147a.75.75 0 011.049 1.05l-.073.083L13.061 12l4.72 4.72a.75.75 0 01-.977 1.133l-.084-.073L12 13.061l-4.72 4.72-.084.072a.75.75 0 01-1.049-1.05l.073-.083L10.939 12l-4.72-4.72a.75.75 0 01.977-1.133l.084.073L12 10.939l4.72-4.72.084-.072z" fill="currentcolor" fill-rule="evenodd"></path></svg>
+            </button>
         </div>
-            <form action="" method="post" id="addProjectForm" enctype="multipart/form-data">
-                <div class="bg-[#2e3238] text-white border-2 border-[#707173] rounded flex flex-col">
-                    <label for="name">Nom du projet</label>
-                    <input type="text" name="name" id="name" class="bg-transparent">
+            <form action="" method="post" id="addProjectForm" enctype="multipart/form-data" class="flex flex-col justify-between w-full h-full pt-4">
+                <div class="form__div">
+                    <input type="text" name="name" id="name" class="form__input" placeholder="">
+                    <label for="name" class="form__label">Nom du projet</label>
                 </div>
-                <div class="bg-[#2e3238] text-white border-2 border-[#707173] rounded flex flex-col">
-                    <label for="des">Description du projet</label>
-                    <textarea name="description" id="description" cols="30" rows="10" class="bg-transparent"></textarea>
+                <div class="form__div">
+                    <textarea name="description" id="description" cols="30" rows="10" class="form__input h-[4rem]" placeholder=""></textarea>
+                    <label for="des" class="form__label">Description du projet</label>
                 </div>
-                <div class="flex flex-wrap">
-                    <div class="bg-[#2e3238] text-white border-2 border-[#707173] rounded flex flex-col">
-                        <label for="github">Lien du repo</label>
-                        <input type="text" name="github" id="github"  class="bg-transparent">
+                <div class="flex flex-wrap justify-between">
+                    <div class="form__div w-[48%]">
+                        <input type="text" name="github" id="github" class="form__input" placeholder="">
+                        <label for="github" class="form__label">Lien du repo</label>
                     </div>
-                    <div class="bg-[#2e3238] text-white border-2 border-[#707173] rounded flex flex-col">
-                        <label for="link">Lien du projet</label>
-                        <input type="text" name="website" id="website" class="bg-transparent">
+                    <div class="form__div w-[48%]">
+                        <input type="text" name="website" id="website" class="form__input" placeholder="">
+                        <label for="link" class="form__label">Lien du projet</label>
                     </div>
                 </div>
-                <div>
-                    <label for="img">Image du projet</label>
-                    <input type="file" name="images" id="images" class="border-2 border-[#707173] rounded">
+                <div class="form__div">
+                    <input type="file" name="images" id="images" class="form__input">
+                    <label for="img" class="form__label">Image du projet</label>
                 </div>
                 <div id="tagsFormAddProject" class="flex flex-wrap"></div>
                 <button id="btnAddProjectForm" class="mt-4 bg-[#ac1de4] w-full text-white font-bold py-2 px-4 rounded">Ajouter</button>

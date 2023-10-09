@@ -54,12 +54,16 @@
         <div id="containerModalAdmin"></div>
         <div class="flex items-start">
             <section id="containerBtnAction">
-                <button id="projectManager" class="btn-mktg-disable">
-                    Projets
-                </button>
-                <button id="tagsManager" class="btn-mktg">
-                    Tags
-                </button>
+                <div class="flex flex-col items-center space-y-2">
+                    <button id="projectManager" class="btn-mktg flex items-center space-x-2">
+                        <span><i class="fa-solid fa-list"></i></span>
+                        <span>Projets</span>
+                    </button>
+                    <button id="tagsManager" class="btn-mktg flex items-center space-x-2">
+                        <span><i class="fa-solid fa-tags"></i></span>
+                        <span>Tags</span>
+                    </button>
+                </div>
             </section>
             <section id="containerActionForm" class="w-full h-screen"></section>
         </div>
