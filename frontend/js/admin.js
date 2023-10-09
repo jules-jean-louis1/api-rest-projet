@@ -14,15 +14,14 @@ if (!userToken) {
 
     titleBarInfo.innerHTML = `
     <div class="flex flex-col justify-center items-center">
-            <div class="flex flex-col justify-center items-center">
-                <h2 class="text-2xl font-bold text-[#D2D2D3]">Bienvenue ${user.login}</h2>
-                <p class="text-xl font-light text-[#707173]">Vous êtes connecté en tant que ${user.site_right}</p>
-            </div>
-            <div class="flex flex-col justify-center items-center">
-                <button id="btnLogout" class="mt-4 bg-secondary-onion text-white font-bold py-2 px-4 rounded">Se déconnecter</button>
-            </div>
+        <div class="flex flex-col justify-center items-center">
+            <h2 class="text-2xl font-bold text-[#D2D2D3]">Bienvenue ${user.login}</h2>
+            <p class="text-xl font-light text-[#707173]">Vous êtes connecté en tant que ${user.site_right}</p>
         </div>
-        `;
+        <div class="flex flex-col justify-center items-center">
+            <button id="btnLogout" class="mt-4 bg-secondary-onion text-white font-bold py-2 px-4 rounded">Se déconnecter</button>
+        </div>
+    </div>`;
 
     const btnLogout = document.getElementById('btnLogout');
     btnLogout.addEventListener('click', () => {

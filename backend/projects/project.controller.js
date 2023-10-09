@@ -6,7 +6,6 @@ const {
 
 module.exports = {
     createProjects: (req, res) => {
-<<<<<<< HEAD
         const name = req.body.name;
         const description = req.body.description;
         const github = req.body.github;
@@ -15,15 +14,8 @@ module.exports = {
         const tags = req.body.tags;
         if (!name || !description || !github || !website || !images) {
             return res.status(400).json({
-=======
-        const { name, description, github, website, images, tags } = req.body;
-        console.log(req.body);
-        // Vérifiez ici que les champs obligatoires sont présents
-        if (!name || !description || !github || !website || !images) {
-            return res.status(404).json({
->>>>>>> parent of 72662fd (try add multer)
                 success: 0,
-                message: "Tous les champs obligatoires doivent être remplis."
+                message: "Tous les champs obligatoires doivent être remplis, y compris l'image."
             });
         }
         const projectData = {
@@ -80,4 +72,4 @@ module.exports = {
             });
         });
     },
-}
+};
