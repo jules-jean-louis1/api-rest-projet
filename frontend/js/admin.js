@@ -100,9 +100,10 @@ function addProject() {
                 </div>
                 <div class="form__div">
                     <input type="file" name="images" id="images" class="form__input">
-                    <label for="img" class="form__label">Image du projet</label>
+                    <label for="images" class="form__label">Image du projet</label>
                 </div>
                 <div id="tagsFormAddProject" class="flex flex-wrap"></div>
+                <div id="errorsDisplay" class="text-red-500"></div>
                 <button id="btnAddProjectForm" class="mt-4 bg-[#ac1de4] w-full text-white font-bold py-2 px-4 rounded">Ajouter</button>
             </form>
         </div>
@@ -129,12 +130,17 @@ function addProject() {
     const formAddProject = document.getElementById('addProjectForm');
     formAddProject.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const name = document.getElementById('name').value;
+        const errorsDisplay = document.getElementById('errorsDisplay');
+        const Name = document.getElementById('name').value;
         const description = document.getElementById('description').value;
         const github = document.getElementById('github').value;
         const website = document.getElementById('website').value;
-        const imagesInput = document.getElementById('images');
-        const images = imagesInput.files[0];
+        // Images
+        const imagesValue = document.getElementById('images').files[0];
+        const inputImages = document.getElementById('images');
+        const imagesName = inputImages.getAttribute('name');
+        const selectedFile = inputImages.files[0];
+        const images = selectedFile.name;
         const tags = document.getElementsByName('tags');
         const tagsChecked = [];
         tags.forEach(tag => {
@@ -143,34 +149,40 @@ function addProject() {
             }
         });
         const formData = new FormData();
-        formData.append('name', name);
+        formData.append('name', Name);
         formData.append('description', description);
         formData.append('github', github);
         formData.append('website', website);
         formData.append('images', images);
         formData.append('tags', JSON.stringify(tagsChecked));
-        try {
-            const response = await fetch(urlApi+'/projects', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${userToken}`
-                },
-                body: formData,
-            });
-            const data = await response.json();
-            if (data.success === 1) {
-                dialog.removeAttribute("open");
-                modal.innerHTML = '';
-                projectManager();
-            } else {
-                console.log(data.message);
-            }
-        } catch (error) {
-            if (error instanceof SyntaxError) {
-                console.error('Invalid JSON:', error.message);
-            } else {
-                throw error;
+
+        console.log(formData);
+        if (!Name || !description || !github || !website || tagsChecked.length === 0) {
+            errorsDisplay.innerHTML = 'Veuillez remplir tous les champs';
+        } else {
+            try {
+                const response = await fetch(urlApi+'/projects/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${userToken}`
+                    },
+                    body: formData,
+                });
+                const data = await response.json();
+                if (data.success === 1) {
+                    dialog.removeAttribute("open");
+                    modal.innerHTML = '';
+                    projectManager();
+                } else {
+                    console.log(data.message);
+                }
+            } catch (error) {
+                if (error instanceof SyntaxError) {
+                    console.error('Invalid JSON:', error.message);
+                } else {
+                    throw error;
+                }
             }
         }
     });

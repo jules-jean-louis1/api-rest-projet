@@ -16,7 +16,7 @@ const corsOptions = {
 app.use(cors(corsOptions)); // Utilisation du middleware CORS avec les options
 
 // Middleware pour gérer les données JSON et les formulaires URL-encoded
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({ extended: false }));
 
 
