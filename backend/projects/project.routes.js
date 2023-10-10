@@ -23,7 +23,7 @@ const {
 } = require("./project.controller");
 
 router.post('/submit', checkToken, upload.single('images'), createProjects);
-router.get('/display', checkToken, getAllProjects);
+router.get('/display', getAllProjects);
 //router.get('/:id', checkToken, getProjectsById);
 
 module.exports = router;
