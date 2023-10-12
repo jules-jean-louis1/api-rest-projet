@@ -40,10 +40,34 @@ module.exports = {
             }
         );
     },
-    getAllProjects: callBack => {
+    getAllProjects: (tags, name, date, callBack) => {
+        let sql = `SELECT projects.* FROM projects`;
+        let sqlTags = `SELECT tags.* FROM tags`;
+
+        const params = [];
+
+        if (tags !== 'All') {
+            sql += ` INNER JOIN projects_tags ON projects.id = projects_tags.project_id
+                INNER JOIN tags ON projects_tags.tags_id = tags.id
+                WHERE tags.name = ?`;
+            params.push(tags);
+        }
+
+        // Si un nom est spécifié, ajoutez une condition de filtrage
+        if (name) {
+            sql += ` AND projects.name LIKE ?`;
+            params.push(`%${name}%`);
+        }
+
+        // Si une date est spécifiée, ajoutez une condition de filtrage
+        if (date !== 'All') {
+            sql += ` ORDER BY projects.created_at ?`;
+            params.push(date);
+        }
+
         pool.query(
-            `SELECT id, name, description, github, website, images, created_at FROM projects`,
-            [],
+            sql,
+            params,
             (error, results, fields) => {
                 if (error) {
                     return callBack(error);

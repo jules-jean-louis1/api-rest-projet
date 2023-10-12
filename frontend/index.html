@@ -66,9 +66,30 @@
                         <i class="fa-solid fa-filter"></i>
                         <span>Filtrer</span>
                     </button>
-                    <div id="filter" class="hidden">
-                        <form action="" method="post" id="formFilterProjects" class="flex items-center">
-
+                    <div id="displayFilter" class="hidden w-full">
+                        <form action="" method="post" id="formFilterProjects" class="flex items-center w-full">
+                            <div class="flex w-full">
+                                <div class="flex w-10/12 space-x-2">
+                                    <div class="form__div_2 w-full">
+                                        <input type="text" id="name" name="name" class="form__input_2" placeholder="">
+                                        <label class="form__label_2" for="name">Recherche un projet</label>
+                                    </div>
+                                    <div class="form__div_2 w-full">
+                                        <select id="tags" name="tags" class="form__input_2">
+                                            <option value="All">Catégorie</option>*
+                                        </select>
+                                        <label class="form__label_2" for="tags">Catégorie</label>
+                                    </div>
+                                    <div class="form__div_2 w-full">
+                                        <select id="date" name="date" class="form__input_2">
+                                            <option value="All">Date</option>
+                                            <option value="ASC">Plus ancien</option>
+                                            <option value="DESC">Plus recent</option>
+                                        </select>
+                                        <label class="form__label_2" for="date">Date</label>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>

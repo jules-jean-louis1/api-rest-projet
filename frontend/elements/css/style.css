@@ -13,6 +13,7 @@
   --red-error-color: #fa2020;
   --divider-secondary-color: #52586666;
   --button-hover-background: #5258661f;
+  --color-border-grey: #202124;
   --primary-purple-color: #5f2eea;
   --primary-purple-color-hover: #4c1dcb;
   --secondary-purple-color-background: #c029f03d;
@@ -181,4 +182,58 @@ img#logoFooter:hover {
 
 .form__input:focus.is_valid {
   border: 2px solid var(--green-color);
+}
+
+/*#############################################################################*/
+/*#############################################################################*/
+/* Form Div */
+.form__div_2{
+  position: relative;
+  height: 48px;
+  margin-bottom: 0.10rem;
+  margin-top: 0.10rem;
+}
+.form__input_2{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: var(--normal-font-size);
+  border: 2px solid var(--color-border-grey);
+  border-radius: .5rem;
+  outline: none;
+  padding: 1rem;
+  background: none;
+  z-index: 1;
+  color: var(--color-mktg-btn-bg);
+}
+.form__label_2{
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  padding: 0 .25rem;
+  background-color: var(--bg-color-dialog);
+  color: var(--input-color);
+  font-size: var(--normal-font-size);
+  transition: .3s;
+}
+.form__input_2:focus + .form__label_2{
+  top: -.5rem;
+  left: .8rem;
+  color: var(--color-border-grey);
+  font-size: var(--small-font-size);
+  font-weight: 500;
+  z-index: 10;
+  outline: none;
+  color: var(--color-mktg-btn-bg) !important;
+}
+
+/*Input focus sticky top label*/
+.form__input_2:not(:placeholder-shown).form__input_2:not(:focus)+ .form__label_2{
+  top: -.5rem;
+  left: .8rem;
+  font-size: var(--small-font-size);
+  font-weight: 500;
+  z-index: 10;
 }

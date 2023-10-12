@@ -42,7 +42,11 @@ module.exports = {
         });
     },
     getAllProjects: (req, res) => {
-        getAllProjects((err, results) => {
+        const tags = req.query.tags;
+        const name = req.query.name;
+        const date = req.query.date;
+
+        getAllProjects(tags, name, date, (err, results) => {
             if (err) {
                 console.log(err);
                 return;
