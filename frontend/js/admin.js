@@ -99,7 +99,7 @@ function addProject() {
                     </div>
                 </div>
                 <div class="form__div">
-                    <input type="file" name="images" id="images" class="form__input">
+                    <input type="file" name="images" id="images" class="form__input" accept="image/*">
                     <label for="images" class="form__label">Image du projet</label>
                 </div>
                 <div id="tagsFormAddProject" class="flex flex-wrap"></div>
@@ -137,37 +137,34 @@ function addProject() {
         const website = document.getElementById('website').value;
         // Images
         const imagesValue = document.getElementById('images').files[0];
-        const inputImages = document.getElementById('images');
-        const imagesName = inputImages.getAttribute('name');
-        const selectedFile = inputImages.files[0];
-        const images = selectedFile.name;
-        const tags = document.getElementsByName('tags');
+        const tags = document.querySelectorAll('input[name="tags"]');
         const tagsChecked = [];
         tags.forEach(tag => {
             if (tag.checked) {
-                tagsChecked.push(tag.value);
+                tagsChecked.push(parseInt(tag.value));
             }
         });
-        const formData = new FormData();
-        formData.append('name', Name);
-        formData.append('description', description);
-        formData.append('github', github);
-        formData.append('website', website);
-        formData.append('images', images);
-        formData.append('tags', JSON.stringify(tagsChecked));
 
-        console.log(formData);
-        if (!Name || !description || !github || !website || tagsChecked.length === 0) {
-            errorsDisplay.innerHTML = 'Veuillez remplir tous les champs';
-        } else {
+        const form = new FormData();
+        form.append('name', name);
+        form.append('description', description);
+        form.append('github', github);
+        form.append('website', website);
+        form.append('images', imagesValue);
+        const tagsJSON = JSON.stringify(tagsChecked);
+        form.append('tags', tagsJSON);
+
+        console.log(form);
+        const formJson = JSON.stringify(Object.fromEntries(form));
+        console.log(formJson);
+
             try {
-                const response = await fetch(urlApi+'/projects/submit', {
+                const response = await fetch(urlApi + '/projects/', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
                         'Authorization': `Bearer ${userToken}`
                     },
-                    body: formData,
+                    body: new FormData(formAddProject),
                 });
                 const data = await response.json();
                 if (data.success === 1) {
@@ -175,7 +172,7 @@ function addProject() {
                     modal.innerHTML = '';
                     projectManager();
                 } else {
-                    console.log(data.message);
+                    errorsDisplay.innerHTML = data.message;
                 }
             } catch (error) {
                 if (error instanceof SyntaxError) {
@@ -184,7 +181,6 @@ function addProject() {
                     throw error;
                 }
             }
-        }
     });
 }
 

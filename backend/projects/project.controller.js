@@ -12,12 +12,12 @@ module.exports = {
         const website = req.body.website;
         const images = req.file;
         const tags = req.body.tags;
-        if (!name || !description || !github || !website || !images) {
+        /*if (!name || !description || !github || !website) {
             return res.status(400).json({
                 success: 0,
                 message: "Tous les champs obligatoires doivent être remplis, y compris l'image."
             });
-        }
+        }*/
         const projectData = {
             name,
             description,
