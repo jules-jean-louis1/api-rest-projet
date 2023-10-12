@@ -61,7 +61,18 @@
                         </span>
                     </p>
                 </div>
-                <div id="containerProjetsDiv"></div>
+                <div id="filterContainer" class="w-full px-[10%] flex space-x-2">
+                    <button id="btnDisplayFilter" type="button" class="text-[#D2D2D3] font-semibold flex items-center space-x-2 px-4 py-3  rounded-lg border-2 border-[#202124] hover:bg-[#202124]">
+                        <i class="fa-solid fa-filter"></i>
+                        <span>Filtrer</span>
+                    </button>
+                    <div id="filter" class="hidden">
+                        <form action="" method="post" id="formFilterProjects" class="flex items-center">
+
+                        </form>
+                    </div>
+                </div>
+                <div id="containerProjetsDiv" class="flex flex-col justify-center items-center mx-5 space-y-5 lg:flex-row lg:flex-wrap lg:space-x-5 lg:space-y-4"></div>
             </section>
         </article>
     </main>

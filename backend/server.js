@@ -18,10 +18,6 @@ app.use(cors(corsOptions)); // Utilisation du middleware CORS avec les options
 // Middleware pour gérer les données JSON et les formulaires URL-encoded
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({ extended: false }));
-app.use((req, res, next) => {
-    console.log("Request Body:", req.body);
-    next();
-});
 
 // Servir des fichiers statiques depuis le dossier "frontend" 
 app.use(express.static(path.join(__dirname, '../frontend')));
