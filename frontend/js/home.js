@@ -46,10 +46,14 @@ async function displayTags() {
 displayTags();
 async function displayProjects() {
     const formProjects = document.getElementById('formFilterProjects');
-
-    let response = await fetch(urlApi+'/display', {
+    let intel = new FormData(formProjects);
+    console.log(intel);
+    let response = await fetch(urlApi+'/projects/display', {
         method: 'POST',
-        body: new FormData(formProjects)
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: intel
     });
     let data = await response.json();
     console.log(data);
