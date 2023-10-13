@@ -61,7 +61,6 @@ module.exports = {
         sql += ` ORDER BY projects.created_at ${date}`;
         params.push(date);
 
-        console.log(sql);
         pool.query(
             sql,
             params,
