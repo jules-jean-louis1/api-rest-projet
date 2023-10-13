@@ -47,20 +47,21 @@ module.exports = {
         const params = [];
 
         if (tags !== 'All') {
-            sql += ` INNER JOIN projects_tags ON projects.id = projects_tags.project_id
-                INNER JOIN tags ON projects_tags.tags_id = tags.id
+            sql += ` INNER JOIN project_tags ON projects.id = project_tags.project_id
+                INNER JOIN tags ON project_tags.tag_id = tags.id
                 WHERE tags.name = ${tags}`;
             params.push(tags);
         }
 
         if (name) {
-            sql += ` AND projects.name LIKE ?`;
-            params.push(`%${name}%`);
+            sql += ` WHERE projects.name LIKE '%${name}%'`;
+            params.push(name);
         }
-        if (date !== 'DESC') {
-            sql += ` ORDER BY projects.created_at ${date}`;
-            params.push(date);
-        }        
+
+        sql += ` ORDER BY projects.created_at ${date}`;
+        params.push(date);
+
+        console.log(sql);
         pool.query(
             sql,
             params,

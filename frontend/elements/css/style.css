@@ -29,7 +29,7 @@
 }
 body {
   /*background: url("../img/Arrière-plan-copie.png");*/
-  background: #121316;
+  background: var(--background-admin);
 }
 #body-admin {
   background-color: var(--background-admin);
@@ -67,7 +67,7 @@ img#logoFooter:hover {
   z-index: 30;
   background-color: rgba(0, 0, 0, 0.5);
 }
-#text-font-gradient {
+#text-font-gradient, #title_projets {
   background: linear-gradient(140deg, #D2A8FF 12.09%, #F778BA 42.58%, #FF7B72 84.96%);
     background-clip: border-box;
   -webkit-background-clip: text;
@@ -75,6 +75,18 @@ img#logoFooter:hover {
   color: transparent;
   width: fit-content;
 }
+.button_gradient {
+  border: 2px solid;
+  border-image: linear-gradient(92.05deg, #d2a8ff 12.09%, #f778ba 42.58%, #ff7b72 84.96%);
+  border-image-slice: 1;
+}
+
+.gradient_border {
+  padding: 1px;
+  background: linear-gradient(92.05deg, #d2a8ff 12.09%, #f778ba 42.58%, #ff7b72 84.96%);
+  border-radius: 10px;
+}
+
 .btn-mktg:active {
   position: relative;
   z-index: 1;
@@ -200,7 +212,7 @@ img#logoFooter:hover {
   width: 100%;
   height: 100%;
   font-size: var(--normal-font-size);
-  border: 2px solid var(--color-border-grey);
+  border: 2px solid #774aba;
   border-radius: .5rem;
   outline: none;
   padding: 1rem;
@@ -213,8 +225,8 @@ img#logoFooter:hover {
   left: 1rem;
   top: 1rem;
   padding: 0 .25rem;
-  background-color: var(--bg-color-dialog);
-  color: var(--input-color);
+  background-color: var(--background-admin);
+  color: #D2D2D3;
   font-size: var(--normal-font-size);
   transition: .3s;
 }
@@ -236,4 +248,10 @@ img#logoFooter:hover {
   font-size: var(--small-font-size);
   font-weight: 500;
   z-index: 10;
+}
+
+/* home */
+.tags_home, .date_home {
+  padding-top: 0rem;
+  padding-bottom: 0rem;
 }
