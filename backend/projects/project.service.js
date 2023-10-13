@@ -60,7 +60,7 @@ module.exports = {
         }
 
         // Si une date est spécifiée, ajoutez une condition de filtrage
-        if (date !== 'All') {
+        if (date !== 'DESC') {
             sql += ` ORDER BY projects.created_at ?`;
             params.push(date);
         }

@@ -42,10 +42,9 @@ module.exports = {
         });
     },
     getAllProjects: (req, res) => {
-        const tags = req.query.tags;
-        const name = req.query.name;
-        const date = req.query.date;
-
+        const tags = req.body.tags;
+        const name = req.body.name;
+        const date = req.body.date;
 
         getAllProjects(tags, name, date, (err, results) => {
             if (err) {
