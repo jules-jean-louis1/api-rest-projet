@@ -49,22 +49,18 @@ module.exports = {
         if (tags !== 'All') {
             sql += ` INNER JOIN projects_tags ON projects.id = projects_tags.project_id
                 INNER JOIN tags ON projects_tags.tags_id = tags.id
-                WHERE tags.name = ?`;
+                WHERE tags.name = ${tags}`;
             params.push(tags);
         }
 
-        // Si un nom est spécifié, ajoutez une condition de filtrage
         if (name) {
             sql += ` AND projects.name LIKE ?`;
             params.push(`%${name}%`);
         }
-
-        // Si une date est spécifiée, ajoutez une condition de filtrage
         if (date !== 'DESC') {
-            sql += ` ORDER BY projects.created_at ?`;
+            sql += ` ORDER BY projects.created_at ${date}`;
             params.push(date);
-        }
-
+        }        
         pool.query(
             sql,
             params,
