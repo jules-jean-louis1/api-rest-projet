@@ -1,6 +1,7 @@
 // Import
 import { loginRegisterForm } from './function/loginRegister.js';
 
+
 const btnLogin = document.getElementById('btnLogin');
 const displayDetailsProject = document.getElementById('displayDetailsProject');
 const backgroundModal = document.getElementById('backgroundModal');
@@ -18,6 +19,15 @@ if (userToken) {
     btnMenu.classList.remove('hidden');
 } else {
     btnMenu.innerHTML = '';
+}
+
+function formatDateWithoutH(timestamp) {
+    const months = ['Jan.', 'Févr.', 'Mar.', 'Avr', 'Mai', 'Juin.', 'Jui.', 'Août.', 'Sep.', 'Oct.', 'Nov.', 'Déc.'];
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = months[date.getMonth()];
+    const day = date.getDate();
+    return `${day} ${month} ${year}`;
 }
 
 const btnDisplayFilter = document.getElementById('btnDisplayFilter');
@@ -65,10 +75,10 @@ async function displayProjects() {
         containerProjets.innerHTML = '';
         for (let elements of data.data) {
             containerProjets.innerHTML += `
-            <article id="project" class="bg-[#181A1D] hover:bg-[#202124] rounded-lg ease-in duration-300 lg:w-1/4 lg:mt-5 lg:ml-5">
+            <article id="project" class="bg-[#181A1D] hover:bg-[#202124] border border-[#52586633] rounded-[10px] ease-in duration-300 lg:w-1/4 lg:mt-5 lg:ml-5">
                 <button type="button" id="button_${elements.id}">
                     <div id="imgContainer" class="">
-                        <img src="../elements/images/projects/${elements.images}" alt="${elements.name}" class="object-cover object-center rounded-t-lg">
+                        <img src="../elements/images/projects/${elements.images}" alt="${elements.name}" class="object-cover object-center rounded-t-[10px]">
                     </div>
                     <div id="titleProject" class="flex flex-col items-center py-3">
                         <h2>
@@ -105,7 +115,7 @@ async function displayProjects() {
                 e.preventDefault();
                 displayDetailsProject.innerHTML = ` 
                 <dialog id="modal_${elements.id}" class="bg-[#181A1D] rounded-lg w-[70%] h-[90%] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 border border-[#52586633]" tabindex="-1" aria-labelledby="modal_${elements.id}" aria-hidden="true">
-                    <div class="flex items-start">
+                    <div class="flex items-start h-full">
                         <div class="w-9/12 h-full px-4  border-r border-[#52586633]">
                             <div id="titleProject" class="flex flex-col items-start py-3">
                                 <h2 class="text-4xl">
@@ -127,11 +137,11 @@ async function displayProjects() {
                         </div>
                         <div class="pb-8 md:w-[18.75rem] xl:w-[21.25rem] xl:max-w-[21.25rem] flex flex-col gap-6 px-4 w-full max-w-full">
                             <div class="flex justify-end">
-                                <button type="button" id="closeBtn_${elements.id}" class="hover:bg-[#27282B] p-1">
+                                <button type="button" id="closeBtn_${elements.id}" class="hover:bg-[#27282B] p-1 rounded-lg">
                                     <i class="fa-solid fa-times fa-2x text-[#D2D2D3] hover:text-[#a770ff]"></i>
                                 </button>
                             </div>
-                            <div id="linkProject" class="flex justify-center mb-2 space-x-2 text-[#707173]">
+                            <div id="linkProject" class="flex flex-col justify-center mb-2 space-x-2 text-[#707173]">
                                 <div class="w-full p-2 m-2 border border-[#52586633] rounded-[10px] flex flex-col space-y-2 bg-[#27282B]">
                                     <h3 class="text-xl font-semibold">Liens</h3>
                                     <a href="${elements.website}" class="px-2 hover:text-[#217CE5] flex space-x-2 items-center">
@@ -155,6 +165,13 @@ async function displayProjects() {
                                         Envoyer un mail
                                     </a>
                                 </div>
+                                <div class="w-full p-2 m-2 border border-[#52586633] rounded-[10px] flex flex-col space-y-2 bg-[#27282B]">
+                                    <h3 class="text-xl font-semibold">Date</h3>
+                                    <p class="px-2">
+                                        <i class="fa-solid fa-calendar"></i>
+                                        ${formatDateWithoutH(elements.created_at)}
+                                    </p>
+                                </div>
                             </div>                                       
                         </div>  
                     </div>
@@ -163,7 +180,6 @@ async function displayProjects() {
                 try {
                     let responseTags = await fetch(urlApi+'/tags/projets/'+elements.id);
                     let dataTags = await responseTags.json();
-                    console.log(dataTags);
                     const tagsProject = document.getElementById('tagsProject');
                     for (tags of dataTags.data) {
                         tagsProject.innerHTML += `
