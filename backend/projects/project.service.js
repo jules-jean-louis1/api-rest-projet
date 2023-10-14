@@ -42,7 +42,6 @@ module.exports = {
     },
     getAllProjects: (tags, name, date, callBack) => {
         let sql = `SELECT projects.* FROM projects`;
-        let sqlTags = `SELECT tags.* FROM tags`;
 
         const params = [];
 

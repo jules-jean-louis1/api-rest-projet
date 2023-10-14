@@ -101,10 +101,8 @@ async function displayProjects() {
                 }
             }
             const button = document.getElementById(`button_${elements.id}`);
-            button.addEventListener('click', (e) => {
+            button.addEventListener('click', async (e) => {
                 e.preventDefault();
-                console.log(elements.id);
-
                 displayDetailsProject.innerHTML = ` 
                 <dialog id="modal_${elements.id}" class="bg-[#181A1D] rounded-lg w-[70%] h-[90%] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 border border-[#52586633]" tabindex="-1" aria-labelledby="modal_${elements.id}" aria-hidden="true">
                     <div class="flex items-start">
@@ -119,9 +117,11 @@ async function displayProjects() {
                             <div id="imgContainer" class="w-full h-40">
                                 <img src="../elements/images/projects/${elements.images}" alt="${elements.name}" class="object-cover h-40 w-full object-center rounded-lg">
                             </div>
-                            <div>
-                                <p>
-                                    <span class="text-[#707173]">${elements.description}</span>
+                            <div id="tagsProject" class="flex space-x-2 py-4"></div>
+                            <div class="flex flex-col">
+                                <h3 class="text-xl font-semibold pt-2 text-[#D2D2D3]">Description</h3>
+                                <p class="text-[#D2D2D3] pt-2" style="white-space: pre-line;">
+                                   ${elements.description}
                                 </p>
                             </div>
                         </div>
@@ -150,7 +150,7 @@ async function displayProjects() {
                                         <i class="fa-solid fa-globe"></i>
                                         Portfolio
                                     </a>
-                                    <a href="mailto:<EMAIL>" class="px-2 hover:text-[#a770ff]">
+                                    <a href="mailto:jules.jean-louis@laplateforme.io" class="px-2 hover:text-[#a770ff]">
                                         <i class="fa-solid fa-envelope"></i>
                                         Envoyer un mail
                                     </a>
@@ -160,6 +160,21 @@ async function displayProjects() {
                     </div>
                 </dialog>
                 `;
+                try {
+                    let responseTags = await fetch(urlApi+'/tags/projets/'+elements.id);
+                    let dataTags = await responseTags.json();
+                    console.log(dataTags);
+                    const tagsProject = document.getElementById('tagsProject');
+                    for (tags of dataTags.data) {
+                        tagsProject.innerHTML += `
+                        <a href="#" class="bg-[#21262D] hover:bg-[#21262D] font-bold px-2 rounded text-[#a8b3cf] hover:text-[#fff]">
+                            <span>#${tags.name}</span>
+                        </a>
+                        `;
+                    }
+                } catch (error) {
+                    console.error('Une erreur s\'est produite : ', error);
+                }
                 const modal = document.getElementById(`modal_${elements.id}`);
                 modal.showModal();
                 backgroundModal.classList.remove('hidden');

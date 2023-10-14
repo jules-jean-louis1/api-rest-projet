@@ -2,7 +2,8 @@ const {
     createTags,
     getTags,
     updateTags,
-    deleteTags
+    deleteTags,
+    getTagsByProjectsId
 } = require("./tags.service.js");
 
 module.exports = {
@@ -66,6 +67,26 @@ module.exports = {
             if (err) {
                 console.log(err);
                 return;
+            }
+            return res.json({
+                success: 1,
+                data: results
+            });
+        });
+    },
+    getTagsByProjectsId : (req, res) => {
+        const id = req.params.id;
+        console.log(id);
+        getTagsByProjectsId(id, (err, results) => {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            if (!results) {
+                return res.json({
+                    success: 0,
+                    message: "Tag not found"
+                });
             }
             return res.json({
                 success: 1,

@@ -53,5 +53,20 @@ module.exports = {
                 return callBack(null, results);
             }
         )
-    }
+    },
+    getTagsByProjectsId: (id, callBack) => {
+        pool.query(
+            `SELECT t.name, t.id
+            FROM tags t
+            INNER JOIN project_tags pt ON t.id = pt.tag_id
+            WHERE pt.project_id = ?`,
+            [id],
+            (error, results, fields) => {
+                if (error) {
+                    return callBack(error);
+                }
+                return callBack(null, results);
+            }
+        )
+    },
 }
