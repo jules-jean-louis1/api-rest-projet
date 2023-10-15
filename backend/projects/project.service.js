@@ -100,4 +100,16 @@ module.exports = {
             }
         )
     },
+    getProjects: (callBack) => {
+        pool.query(
+            `SELECT * FROM projects`,
+            (error, results, fields) => {
+                if (error) {
+                    return callBack(error);
+                }
+                return callBack(null, results);
+
+            }
+        );
+    }
 }

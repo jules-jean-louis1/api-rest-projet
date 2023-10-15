@@ -1,3 +1,5 @@
+const url = 'http://localhost:4000';
+
 function createDialog()
 {
     const containerForm = document.querySelector('#containerFormLoginRegister');
@@ -107,7 +109,7 @@ export async function loginRegisterForm(btnLogin)
                 const errorDisplay = document.querySelector('#errorDisplay');
 
             try {
-                const response = await fetch('http://localhost:4000/users/login', {
+                const response = await fetch(url+'/users/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json', // Spécifiez le type de contenu JSON.

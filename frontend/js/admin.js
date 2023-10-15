@@ -50,17 +50,33 @@ async function getAllTags() {
     const data = await response.json();
     return data;
 }
-function projectManager() {
+async function projectManager() {
     const containerDiv = document.getElementById('containerActionForm');
     containerDiv.innerHTML = '';
     containerDiv.innerHTML = `
     <div>
-        <div class="flex justify-around">
+        <div class="flex justify-around items-center">
             <h2 class="text-2xl font-bold text-[#D2D2D3]">Gestion des projets</h2>
-            <button id="btnAddProject" class="mt-4 bg-secondary-onion text-white font-bold py-2 px-4 rounded">Ajouter un projet</button>
+            <button id="btnAddProject" class="bg-secondary-onion text-white font-bold py-2 px-4 rounded-[10px] border border-whiter">Ajouter un projet</button>
         </div>
         <div id="containerProject"></div>
     </div>`;
+    try {
+        let response = await fetch(urlApi + '/projects');
+        let data = await response.json();
+        const containerProject = document.getElementById('containerProject');
+        containerProject.innerHTML = '';
+        for (let project of data.data) {
+            containerProject.innerHTML += `
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-[#D2D2D3]">${project.name}</h2>
+                <button id="btnEditProject" class="bg-secondary-onion text-white font-bold py-2 px-4 rounded-[10px] border border-whiter">Editer</button>
+                <button id="btnDeleteProject" class="bg-secondary-onion text-white font-bold py-2 px-4 rounded-[10px] border border-whiter">Supprimer</button>
+            </div>`;
+        }
+    } catch (error) {
+        console.log(error);
+    }
     const btnAddProject = document.getElementById('btnAddProject');
     btnAddProject.addEventListener('click', () => {
         addProject();

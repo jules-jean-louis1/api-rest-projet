@@ -2,6 +2,7 @@ const {
     createProjects,
     getAllProjects,
     getProjectsById,
+    getProjects,
 } = require("./project.service");
 
 module.exports = {
@@ -76,4 +77,16 @@ module.exports = {
             });
         });
     },
+    getProjects:(req, res) =>{
+        getProjects((err, results) =>{
+            if (err) {
+                console.log(err);
+                return;
+            }
+            return res.json({
+                success: 1,
+                data: results
+            });
+        })
+    }
 };
