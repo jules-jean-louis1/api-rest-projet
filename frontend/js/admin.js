@@ -7,6 +7,15 @@ const titleBarInfo = document.getElementById('titleBarInfo');
 const btnProjectManager = document.getElementById('projectManager');
 const btnTagsManager = document.getElementById('tagsManager');
 
+function formatDateWithoutH(timestamp) {
+    const months = ['Jan.', 'Févr.', 'Mar.', 'Avr', 'Mai', 'Juin.', 'Jui.', 'Août.', 'Sep.', 'Oct.', 'Nov.', 'Déc.'];
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = months[date.getMonth()];
+    const day = date.getDate();
+    return `${day} ${month} ${year}`;
+}
+
 if (!userToken) {
     window.location.href = urlApi;
 } else {
@@ -54,24 +63,32 @@ async function projectManager() {
     const containerDiv = document.getElementById('containerActionForm');
     containerDiv.innerHTML = '';
     containerDiv.innerHTML = `
-    <div>
-        <div class="flex justify-around items-center">
-            <h2 class="text-2xl font-bold text-[#D2D2D3]">Gestion des projets</h2>
+    <div class="pl-2">
+        <div class="flex justify-between items-center rounded-t-[10px] gradient_border p-2">
+            <h2 class="text-2xl font-bold text-[#fff]">Gestion des projets</h2>
             <button id="btnAddProject" class="bg-secondary-onion text-white font-bold py-2 px-4 rounded-[10px] border border-whiter">Ajouter un projet</button>
         </div>
-        <div id="containerProject"></div>
+        <div id="containerProject" class="p-2 border border-[#52586633] rounded-b-[10px] bg-[#27282B]"></div>
     </div>`;
     try {
-        let response = await fetch(urlApi + '/projects');
+        let response = await fetch(urlApi + '/projects/display');
         let data = await response.json();
         const containerProject = document.getElementById('containerProject');
         containerProject.innerHTML = '';
         for (let project of data.data) {
             containerProject.innerHTML += `
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center ">
                 <h2 class="text-2xl font-bold text-[#D2D2D3]">${project.name}</h2>
-                <button id="btnEditProject" class="bg-secondary-onion text-white font-bold py-2 px-4 rounded-[10px] border border-whiter">Editer</button>
-                <button id="btnDeleteProject" class="bg-secondary-onion text-white font-bold py-2 px-4 rounded-[10px] border border-whiter">Supprimer</button>
+                <div class="flex iteems-center space-x-2">
+                    <div class="px-2 flex items-center space-x-2 text-[#D2D2D3]">
+                        <i class="fa-solid fa-calendar"></i>
+                        <span>
+                            ${formatDateWithoutH(project.created_at)}
+                        </span>
+                    </div>
+                    <button id="btnEditProject_${project.id}" class="bg-secondary-onion text-white font-bold py-2 px-4 rounded-[10px] border border-whiter">Editer</button>
+                    <button id="btnDeleteProject_${project.id}" class="bg-secondary-onion text-white font-bold py-2 px-4 rounded-[10px] border border-whiter">Supprimer</button>
+                </div>
             </div>`;
         }
     } catch (error) {

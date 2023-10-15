@@ -26,6 +26,7 @@ const {
 router.post('/', checkToken, upload.single('images'), createProjects);
 router.post('/display', getAllProjects);
 router.get('/display', getProjects)
+router.get('/:id', getProjectsById);
 //router.get('/:id', checkToken, getProjectsById);
 
 module.exports = router;

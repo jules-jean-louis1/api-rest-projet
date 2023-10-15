@@ -84,7 +84,6 @@ img#logoFooter:hover {
 .gradient_border {
   padding: 1px;
   background: linear-gradient(92.05deg, #d2a8ff 12.09%, #f778ba 42.58%, #ff7b72 84.96%);
-  border-radius: 10px;
 }
 
 .btn-mktg:active {

@@ -73,7 +73,7 @@ module.exports = {
     },
     getProjectsById: (id, callBack) => {
         pool.query(
-            `SELECT id, name, short_des, des, created_at FROM projects WHERE id = ?`,
+            `SELECT * FROM projects WHERE id = ?`,
             [id],
             (error, results, fields) => {
                 if (error) {
@@ -85,7 +85,7 @@ module.exports = {
     },
     updateProjects: (data, callBack) => {
         pool.query(
-            `UPDATE projects SET name = ?, short_des = ?, des = ? WHERE id = ?`,
+            `UPDATE projects SET name = ?, description = ?, des = ? WHERE id = ?`,
             [
                 data.name,
                 data.short_des,
