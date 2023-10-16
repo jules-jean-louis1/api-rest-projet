@@ -29,7 +29,7 @@ function formatDateWithoutH(timestamp) {
     const day = date.getDate();
     return `${day} ${month} ${year}`;
 }
-
+// Afficher le form pour filter les projects
 const btnDisplayFilter = document.getElementById('btnDisplayFilter');
 
 btnDisplayFilter.addEventListener('click', (e) =>{
@@ -202,7 +202,6 @@ async function displayProjects() {
                 });
             });
         }
-        console.log(data);
     } catch (error) {
         console.error('Une erreur s\'est produite : ', error);
     }

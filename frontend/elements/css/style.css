@@ -266,3 +266,15 @@ img#logoFooter:hover {
   z-index: 10;
   background-color: rgba(147, 55, 233, 0.24);
 }
+
+
+/*#############################################################################*/
+/* Gestions transition */
+
+#displayFilter {
+  transition: transform 0.3s ease-in-out;
+}
+
+#displayFilter.hidden {
+  transform: translateX(-100%);
+}
