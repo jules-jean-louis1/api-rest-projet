@@ -20,13 +20,14 @@ const {
     createProjects,
     getAllProjects,
     getProjectsById,
-    getProjects
+    getProjects,
+    updateProjects
 } = require("./project.controller");
 
 router.post('/', checkToken, upload.single('images'), createProjects);
 router.post('/display', getAllProjects);
 router.get('/display', getProjects)
 router.get('/:id', getProjectsById);
-//router.get('/:id', checkToken, getProjectsById);
+router.patch('/:id', checkToken, upload.single('images'), updateProjects);
 
 module.exports = router;

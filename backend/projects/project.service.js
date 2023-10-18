@@ -108,8 +108,27 @@ module.exports = {
                     return callBack(error);
                 }
                 return callBack(null, results);
-
             }
         );
-    }
+    },
+    updateProjects: (id, projectData, callBack) => {
+        pool.query(
+            `UPDATE projects SET name=?, description=?, github=?, website=?, images=?, updated_at=? WHERE id=?`,
+            [
+            projectData.name,
+            projectData.description,
+            projectData.github,
+            projectData.website,
+            projectData.images,
+            new Date(),
+            id
+            ],
+            (error, results, fields) => {
+            if (error) {
+                return callBack(error);
+            }
+            return callBack(null, results[0]);
+            }
+        );
+    },
 }
