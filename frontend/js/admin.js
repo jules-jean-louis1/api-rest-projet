@@ -104,7 +104,7 @@ function addProject() {
     const modal = document.getElementById('containerModalAdmin');
     modal.innerHTML = '';
     modal.innerHTML = `
-    <dialog id="modalAddProduct" class="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 rounded bg-[#181A1Dfc] border border-[#ac1de4] p-4 w-[70%] h-[70%] xl:w-1/2 xl:h-1/2">
+    <dialog id="modalAddProduct" class="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 rounded bg-[#27282B] border border-[#ac1de4] p-4 w-[70%] h-[70%] xl:w-1/2 xl:h-1/2">
         <div class="flex flex-col justify-between h-full">
         <div class="flex justify-between items-center">
             <h2 class="text-2xl font-bold text-[#D2D2D3]">Ajouter un projet</h2>
