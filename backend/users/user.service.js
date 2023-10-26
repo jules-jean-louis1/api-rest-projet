@@ -1,76 +1,24 @@
-const pool = require('./../../config/database');
+const e = require('express');
+const mongoose = require('mongoose');
 
-module.exports = {
-    create: (data, callBack) => {
-        pool.query(
-            `INSERT INTO users (login, email, password, site_right, created_at)
-            VALUES (?, ?, ?, ?, NOW())`,
-            [
-                data.login,
-                data.email,
-                data.password,
-                data.site_right,
-            ],
-            (error, results, fields) => {
-                if (error) {
-                    return callBack(error);
-                }
-                return callBack(null, results);
-            }
-        )
+const userSchema = mongoose.Schema (
+    {
+        login : {
+            type: String,
+            required: true
+        },
+        email : {
+            type: String,
+            required: true
+        },
+        password : {
+            type: String,
+            required: true
+        },
     },
-    getUsers: callBack => {
-        pool.query(
-            `SELECT id, login, email, site_right, created_at FROM users`,
-            [],
-            (error, results, fields) => {
-                if (error) {
-                    return callBack(error);
-                }
-                return callBack(null, results);
-            }
-        )
-    },
-    updateUser: (data, callBack) => {
-        pool.query(
-            `UPDATE users SET login = ?, email = ?,, password = ?, site_right = ? WHERE id = ?`,
-            [
-                data.login,
-                data.email,
-                data.password,
-                data.site_right,
-                data.id
-            ],
-            (error, results, fields) => {
-                if (error) {
-                    return callBack(error);
-                }
-                return callBack(null, results[0]);
-            }
-        )
-    },
-    deleteUser: (data, callBack) => {
-        pool.query(
-            `DELETE FROM users WHERE id = ?`,
-            [data.id],
-            (error, results, fields) => {
-                if (error) {
-                    return callBack(error);
-                }
-                return callBack(null, results[0]);
-            }
-        )
-    },
-    getUserByUserEmail: (email, callBack) => {
-        pool.query(
-            `SELECT * FROM users WHERE email = ?`,
-            [email],
-            (error, results, fields) => {
-                if (error) {
-                    callBack(error);
-                }
-                return callBack(null, results[0]);
-            }
-        )
+    {
+        timestamps: true
     }
-}
+);
+
+exports.User = mongoose.model('User', userSchema);

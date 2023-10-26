@@ -9,10 +9,12 @@ const userRoutes = require('./backend/users/user.routes');
 const tagsRoutes = require('./backend/tags/tags.routes');
 const projectRoutes = require('./backend/projects/project.routes');
 
+const connectDB = require('./config/database');
+
 const corsOptions = {
     origin: 'http://localhost:4000/',
 };
-
+connectDB();
 app.use(cors(corsOptions));
 
 
